@@ -28,7 +28,7 @@ export function TextCleaner() {
   const handleCleanText = async () => {
     setIsLoading(true);
     setError(null);
-    addLog(`Cleaning text. AI consent: ${useAI}`);
+    addLog(`Limpiando texto. Consentimiento de IA: ${useAI}`);
 
     let cleaned = inputText.trim().replace(/\s+/g, " ");
     
@@ -37,14 +37,14 @@ export function TextCleaner() {
         const result = await cleanTextWithAI(cleaned);
         if (result.cleanedText) {
             cleaned = result.cleanedText;
-            addLog("AI text cleaning successful.", "success");
+            addLog("Limpieza de texto con IA exitosa.", "success");
         } else {
-            throw new Error("AI cleaning returned no text.");
+            throw new Error("La limpieza con IA no devolvió texto.");
         }
       } catch (e: any) {
-        const errorMessage = e.message || "An unknown error occurred during AI cleaning.";
+        const errorMessage = e.message || "Ocurrió un error desconocido durante la limpieza con IA.";
         setError(errorMessage);
-        addLog(`AI cleaning failed: ${errorMessage}`, "error");
+        addLog(`La limpieza con IA falló: ${errorMessage}`, "error");
         setIsLoading(false);
         setOutputText(cleaned);
         return;
@@ -52,35 +52,35 @@ export function TextCleaner() {
     }
     
     setOutputText(cleaned);
-    addLog("Text cleaning successful.");
+    addLog("Limpieza de texto exitosa.");
     setIsLoading(false);
   };
 
   return (
     <div className="space-y-6">
       <CardHeader className="p-0">
-        <CardTitle className="font-headline">Intelligent Text Cleaner</CardTitle>
+        <CardTitle className="font-headline">Limpiador de Texto Inteligente</CardTitle>
         <CardDescription>
-          Clean and normalize text. Optionally use AI for advanced correction.
+          Limpia y normaliza el texto. Opcionalmente, usa IA para una corrección avanzada.
         </CardDescription>
       </CardHeader>
       
       <div className="grid md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <Label htmlFor="input-text">Original Text</Label>
+          <Label htmlFor="input-text">Texto Original</Label>
           <Textarea
             id="input-text"
-            placeholder="Paste your text here..."
+            placeholder="Pega tu texto aquí..."
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             className="min-h-[250px]"
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="output-text">Cleaned Text</Label>
+          <Label htmlFor="output-text">Texto Limpio</Label>
           <Textarea
             id="output-text"
-            placeholder="Cleaned text will appear here..."
+            placeholder="El texto limpio aparecerá aquí..."
             value={outputText}
             readOnly
             className="min-h-[250px] bg-muted/50"
@@ -100,19 +100,19 @@ export function TextCleaner() {
         <div className="flex items-center space-x-2">
           <Checkbox id="use-ai" checked={useAI} onCheckedChange={(checked) => setUseAI(Boolean(checked))} />
           <Label htmlFor="use-ai" className="cursor-pointer">
-            Use GenAI for intelligent cleaning
+            Usar GenAI para limpieza inteligente
           </Label>
         </div>
         <Button onClick={handleCleanText} disabled={isLoading || !inputText}>
           {isLoading ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Cleaning...
+              Limpiando...
             </>
           ) : (
             <>
               <Wand2 className="mr-2 h-4 w-4" />
-              Clean Text
+              Limpiar Texto
             </>
           )}
         </Button>

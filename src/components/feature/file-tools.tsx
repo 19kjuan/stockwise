@@ -18,7 +18,7 @@ export function FileTools() {
 
   // File Writer state
   const [writerContent, setWriterContent] = useState("");
-  const [writerFileName, setWriterFileName] = useState("my-file.txt");
+  const [writerFileName, setWriterFileName] = useState("mi-archivo.txt");
 
   // Extension Validator state
   const [validatorFile, setValidatorFile] = useState<File | null>(null);
@@ -33,11 +33,11 @@ export function FileTools() {
       reader.onload = (e) => {
         const text = e.target?.result as string;
         setFileContent(text);
-        addLog(`Read file: ${file.name}`, "success");
+        addLog(`Archivo leído: ${file.name}`, "success");
       };
       reader.onerror = () => {
-        addLog(`Error reading file: ${file.name}`, "error");
-        setFileContent("Error reading file.");
+        addLog(`Error al leer el archivo: ${file.name}`, "error");
+        setFileContent("Error al leer el archivo.");
       }
       reader.readAsText(file);
     }
@@ -45,7 +45,7 @@ export function FileTools() {
 
   const handleFileWrite = useCallback(() => {
     if (!writerContent || !writerFileName) {
-      addLog("File writer: content or filename is empty.", "warning");
+      addLog("Escritor de archivos: el contenido o el nombre del archivo está vacío.", "warning");
       return;
     }
     const blob = new Blob([writerContent], { type: "text/plain" });
@@ -57,24 +57,24 @@ export function FileTools() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    addLog(`Downloaded file: ${writerFileName}`, "success");
+    addLog(`Archivo descargado: ${writerFileName}`, "success");
   }, [writerContent, writerFileName, addLog]);
 
   const handleFileValidation = useCallback(() => {
     if (!validatorFile) {
-      setValidationResult({ message: "Please select a file to validate.", valid: false });
-      addLog("Validator: No file selected.", "warning");
+      setValidationResult({ message: "Por favor, selecciona un archivo para validar.", valid: false });
+      addLog("Validador: No se seleccionó ningún archivo.", "warning");
       return;
     }
     const fileExtension = validatorFile.name.split('.').pop()?.toLowerCase();
     const extensions = allowedExtensions.split(',').map(ext => ext.trim().toLowerCase());
 
     if (fileExtension && extensions.includes(fileExtension)) {
-      setValidationResult({ message: `File extension '.${fileExtension}' is allowed.`, valid: true });
-      addLog(`Validation success: ${validatorFile.name}`, "success");
+      setValidationResult({ message: `La extensión de archivo '.${fileExtension}' está permitida.`, valid: true });
+      addLog(`Validación exitosa: ${validatorFile.name}`, "success");
     } else {
-      setValidationResult({ message: `File extension '.${fileExtension}' is not allowed.`, valid: false });
-      addLog(`Validation failed: ${validatorFile.name}`, "error");
+      setValidationResult({ message: `La extensión de archivo '.${fileExtension}' no está permitida.`, valid: false });
+      addLog(`Validación fallida: ${validatorFile.name}`, "error");
     }
   }, [validatorFile, allowedExtensions, addLog]);
 
@@ -83,17 +83,17 @@ export function FileTools() {
       {/* File Reader */}
       <Card>
         <CardHeader>
-          <CardTitle className="font-headline flex items-center gap-2"><FileText size={20} /> File Reader</CardTitle>
-          <CardDescription>Select a text file to display its content.</CardDescription>
+          <CardTitle className="font-headline flex items-center gap-2"><FileText size={20} /> Lector de Archivos</CardTitle>
+          <CardDescription>Selecciona un archivo de texto para mostrar su contenido.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="file-reader-input">Upload File</Label>
+            <Label htmlFor="file-reader-input">Subir Archivo</Label>
             <Input id="file-reader-input" type="file" onChange={handleFileRead} />
           </div>
           {readFileName && (
             <div className="space-y-2">
-              <Label>Content of {readFileName}:</Label>
+              <Label>Contenido de {readFileName}:</Label>
               <Textarea value={fileContent} readOnly className="h-48 bg-muted/50" />
             </div>
           )}
@@ -103,37 +103,37 @@ export function FileTools() {
       {/* File Writer */}
       <Card>
         <CardHeader>
-          <CardTitle className="font-headline flex items-center gap-2"><Download size={20} /> File Writer</CardTitle>
-          <CardDescription>Write content and download it as a text file.</CardDescription>
+          <CardTitle className="font-headline flex items-center gap-2"><Download size={20} /> Escritor de Archivos</CardTitle>
+          <CardDescription>Escribe contenido y descárgalo como un archivo de texto.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="writer-content">File Content</Label>
-            <Textarea id="writer-content" value={writerContent} onChange={(e) => setWriterContent(e.target.value)} placeholder="Type content here..."/>
+            <Label htmlFor="writer-content">Contenido del Archivo</Label>
+            <Textarea id="writer-content" value={writerContent} onChange={(e) => setWriterContent(e.target.value)} placeholder="Escribe tu contenido aquí..."/>
           </div>
           <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="writer-filename">Filename</Label>
+            <Label htmlFor="writer-filename">Nombre del Archivo</Label>
             <Input id="writer-filename" value={writerFileName} onChange={(e) => setWriterFileName(e.target.value)} />
           </div>
         </CardContent>
         <CardFooter>
-          <Button onClick={handleFileWrite}><Download className="mr-2 h-4 w-4" /> Save to Disk</Button>
+          <Button onClick={handleFileWrite}><Download className="mr-2 h-4 w-4" /> Guardar en Disco</Button>
         </CardFooter>
       </Card>
 
       {/* Extension Validator */}
       <Card>
         <CardHeader>
-          <CardTitle className="font-headline flex items-center gap-2"><FileCheck size={20} /> Extension Validator</CardTitle>
-          <CardDescription>Check if a file has an allowed extension.</CardDescription>
+          <CardTitle className="font-headline flex items-center gap-2"><FileCheck size={20} /> Validador de Extensión</CardTitle>
+          <CardDescription>Verifica si un archivo tiene una extensión permitida.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="validator-input">Upload File</Label>
+            <Label htmlFor="validator-input">Subir Archivo</Label>
             <Input id="validator-input" type="file" onChange={(e) => setValidatorFile(e.target.files?.[0] || null)} />
           </div>
           <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="allowed-extensions">Allowed Extensions (comma-separated)</Label>
+            <Label htmlFor="allowed-extensions">Extensiones Permitidas (separadas por comas)</Label>
             <Input id="allowed-extensions" value={allowedExtensions} onChange={(e) => setAllowedExtensions(e.target.value)} />
           </div>
           {validationResult && (
@@ -144,7 +144,7 @@ export function FileTools() {
           )}
         </CardContent>
         <CardFooter>
-          <Button onClick={handleFileValidation}><FileCheck className="mr-2 h-4 w-4" /> Validate</Button>
+          <Button onClick={handleFileValidation}><FileCheck className="mr-2 h-4 w-4" /> Validar</Button>
         </CardFooter>
       </Card>
     </div>

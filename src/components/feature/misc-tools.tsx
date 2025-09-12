@@ -21,13 +21,13 @@ export function MiscTools() {
   const generateTimestamp = () => {
     const newTimestamp = new Date().toISOString();
     setTimestamp(newTimestamp);
-    addLog("Generated new timestamp.");
+    addLog("Se generó una nueva marca de tiempo.");
   };
 
   const copyTimestamp = () => {
     if (!timestamp) return;
     navigator.clipboard.writeText(timestamp);
-    addLog("Timestamp copied to clipboard.", "success");
+    addLog("Marca de tiempo copiada al portapapeles.", "success");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -46,29 +46,29 @@ export function MiscTools() {
       {/* Timestamp Generator */}
       <Card>
         <CardHeader>
-          <CardTitle className="font-headline flex items-center gap-2"><Clock size={20} /> Timestamp Generator</CardTitle>
-          <CardDescription>Generate and copy the current timestamp.</CardDescription>
+          <CardTitle className="font-headline flex items-center gap-2"><Clock size={20} /> Generador de Marca de Tiempo</CardTitle>
+          <CardDescription>Genera y copia la marca de tiempo actual.</CardDescription>
         </CardHeader>
         <CardContent>
-          <Label htmlFor="timestamp-output">Current ISO Timestamp</Label>
+          <Label htmlFor="timestamp-output">Marca de Tiempo ISO Actual</Label>
           <div className="flex w-full max-w-sm items-center space-x-2">
-            <Input id="timestamp-output" value={timestamp} readOnly placeholder="Generating timestamp..." />
+            <Input id="timestamp-output" value={timestamp} readOnly placeholder="Generando marca de tiempo..." />
             <Button variant="outline" size="icon" onClick={copyTimestamp} disabled={!timestamp}>
               {copied ? <Check className="h-4 w-4 text-green-500 dark:text-green-400" /> : <Clipboard className="h-4 w-4" />}
-              <span className="sr-only">Copy</span>
+              <span className="sr-only">Copiar</span>
             </Button>
           </div>
         </CardContent>
         <CardFooter>
-          <Button onClick={generateTimestamp}><Clock className="mr-2 h-4 w-4" /> Generate New</Button>
+          <Button onClick={generateTimestamp}><Clock className="mr-2 h-4 w-4" /> Generar Nueva</Button>
         </CardFooter>
       </Card>
 
       {/* Activity Logger */}
       <Card>
         <CardHeader>
-          <CardTitle className="font-headline flex items-center gap-2"><List size={20} /> Activity Logger</CardTitle>
-          <CardDescription>A log of all actions performed in this session.</CardDescription>
+          <CardTitle className="font-headline flex items-center gap-2"><List size={20} /> Registro de Actividad</CardTitle>
+          <CardDescription>Un registro de todas las acciones realizadas en esta sesión.</CardDescription>
         </CardHeader>
         <CardContent>
           <ScrollArea className="h-72 w-full rounded-md border p-4 bg-muted/30">
@@ -86,7 +86,7 @@ export function MiscTools() {
               </div>
             ) : (
               <div className="flex items-center justify-center h-full text-muted-foreground">
-                <p>No activity yet.</p>
+                <p>Aún no hay actividad.</p>
               </div>
             )}
           </ScrollArea>

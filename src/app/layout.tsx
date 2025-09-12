@@ -4,8 +4,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { AppProvider } from '@/context/app-provider';
 
 export const metadata: Metadata = {
-  title: 'EmergingTech Toolkit',
-  description: 'A toolkit for an emerging technologies workshop.',
+  title: 'Kit de Herramientas de Tecnologías Emergentes',
+  description: 'Un kit de herramientas para un taller de tecnologías emergentes.',
 };
 
 export default function RootLayout({
@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

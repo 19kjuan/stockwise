@@ -18,15 +18,15 @@ export function Toolkit() {
       <TabsList className="grid w-full grid-cols-3 max-w-2xl mx-auto">
         <TabsTrigger value="text-cleaner">
           <Sparkles className="mr-2 h-4 w-4" />
-          Text Cleaner
+          Limpiador de Texto
         </TabsTrigger>
         <TabsTrigger value="file-tools">
           <FileCog className="mr-2 h-4 w-4" />
-          File Tools
+          Herramientas de Archivo
         </TabsTrigger>
         <TabsTrigger value="misc-tools">
           <Wrench className="mr-2 h-4 w-4" />
-          Utilities
+          Utilidades
         </TabsTrigger>
       </TabsList>
       <Card className="mt-4">
